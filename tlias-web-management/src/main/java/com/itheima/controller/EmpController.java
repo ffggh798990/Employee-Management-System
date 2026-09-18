@@ -1,5 +1,6 @@
 package com.itheima.controller;
 
+import com.itheima.anno.Log;
 import com.itheima.pojo.Emp;
 import com.itheima.pojo.EmpQueryParam;
 import com.itheima.pojo.PageResult;
@@ -50,6 +51,7 @@ public class EmpController {
         PageResult<Emp> pageResult=empService.page(empQueryParam);
         return Result.success(pageResult);
     }
+    @Log//标记该接口需要记录操作日志
     @PostMapping
     public  Result save(@RequestBody Emp emp)
     {
@@ -66,6 +68,7 @@ public class EmpController {
     }
 */
     //用list集合来传参接收
+    @Log//标记该接口需要记录操作日志
     @DeleteMapping
     public  Result delete(@RequestParam List<Integer> ids)
     {
@@ -82,6 +85,7 @@ public class EmpController {
         return  Result.success(emp);
 
     }
+    @Log//标记该接口需要记录操作日志
     @PutMapping
     public Result update(@RequestBody Emp emp)
 

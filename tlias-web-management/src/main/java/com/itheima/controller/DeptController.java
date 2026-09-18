@@ -1,5 +1,6 @@
 package com.itheima.controller;
 
+import com.itheima.anno.Log;
 import com.itheima.pojo.Dept;
 import com.itheima.pojo.Result;
 import com.itheima.service.DeptService;
@@ -37,8 +38,12 @@ public class DeptController {
 //    }
 
 
-    @DeleteMapping("/depts/{id}")//("/{id}")加上前面request mapping的请求路径共同成为总的请求路径
-    public Result delete(@PathVariable Integer id) {
+    @Log//标记该接口需要记录操作日志
+    @DeleteMapping("/depts")//("/{id}")加上前面request mapping的请求路径共同成为总的请求路径
+    //注意：前端 api/dept.js 里发的是 request.delete(`/depts?id=${id}`)，是"问号传参"DELETE /depts?id=3，
+    //不是"路径传参"DELETE /depts/3。所以这里必须是 /depts + @RequestParam 才能匹配上，
+    //写成 /depts/{id} + @PathVariable 会报 405 Request method 'DELETE' is not supported。
+    public Result delete(@RequestParam Integer id) {
         //System.out.println("根据id删除部门： "+ id);//只能输出到控制台不便于维护以及拓展
        log.info("根据id删除部门： {}",id);
         deptService.deleteById(id);
@@ -46,6 +51,7 @@ public class DeptController {
         return Result.success();
     }
 
+    @Log//标记该接口需要记录操作日志
     @PostMapping("/depts")
     public Result add(@RequestBody Dept dept){
         //System.out.println("新增部门： "+ dept);
@@ -61,6 +67,7 @@ public class DeptController {
         Dept dept=deptService. getByid(id);
         return Result.success(dept);
     }
+    @Log//标记该接口需要记录操作日志
     @PutMapping("/depts")
     public  Result updateById(@RequestBody Dept dept)
     {

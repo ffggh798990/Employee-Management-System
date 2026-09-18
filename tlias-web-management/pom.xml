@@ -99,6 +99,17 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- AOP起步依赖
+             注意:Spring Boot 4.0 把这个依赖改名了:aop → aspectj
+             不写版本号是对的,4.0.6 的 BOM 管着它(spring-boot-starter-aspectj:4.0.6)
+             写 spring-boot-starter-aop 会报 not found,因为 4.0.6 根本没这个坐标 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aspectj</artifactId>
+        </dependency>
+
+
+
 
     </dependencies>
 
