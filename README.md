@@ -207,19 +207,25 @@ CREATE DATABASE tlias DEFAULT CHARSET utf8mb4;
 
 需要的数据表：`dept`、`emp`、`emp_expr`、`emp_log`、`operate_log`（DDL 见上文「操作日志」一节及各实体类字段）。
 
-### 3. 修改配置
+### 3. 配置数据库密码
 
-编辑 `tlias-web-management/src/main/resources/application.yml`，把数据源改成本地环境：
+仓库里**不含任何明文密码**。`application.yml` 中默认激活 `local` 环境，密码从这个文件读：
+
+```
+tlias-web-management/src/main/resources/application-local.yml    ← 已被 .gitignore 忽略
+```
+
+内容形如：
 
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/tlias
-    username: root
-    password: ${DB_PASSWORD:你的数据库密码}
+    password: 你的数据库密码
 ```
 
-> 仓库中密码已替换为占位符。也可以直接设置环境变量 `DB_PASSWORD`，避免把明文密码写进配置文件。
+`application.yml` 里的兜底写法是 `${DB_PASSWORD:your_password}`：先用环境变量 `DB_PASSWORD`，没有就用默认值。**优先级：`application-local.yml` > 环境变量 > 默认值。**
+
+> clone 下来的仓库里没有 `application-local.yml`（这是故意的）。Spring Boot 找不到该文件会直接跳过、不报错，你只要自己建一个填上密码即可。
 
 阿里云 OSS 部分（`aliyun.oss.*`）需要换成自己的 Bucket；**AccessKey 未写入配置文件**，代码里走的是 SDK 默认凭证链（环境变量 `ALIBABA_CLOUD_ACCESS_KEY_ID` / `ALIBABA_CLOUD_ACCESS_KEY_SECRET`）。
 

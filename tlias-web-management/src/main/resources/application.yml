@@ -2,6 +2,10 @@
 spring:
   application:
     name: tlias-web-management
+  #默认激活 local 环境。真实密码放在同目录的 application-local.yml 里，那个文件在 .gitignore 中，不会提交到 GitHub。
+  #别人 clone 下来没有这个文件也没关系：Spring Boot 找不到就跳过，不会报错，只是要用自己的密码。
+  profiles:
+    active: local
   #数据库连接信息
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

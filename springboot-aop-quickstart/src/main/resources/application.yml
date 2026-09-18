@@ -1,5 +1,8 @@
 #数据源配置
 spring:
+  #默认激活 local 环境，真实密码在 application-local.yml（已被 .gitignore 忽略，不会提交）
+  profiles:
+    active: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/tlias
