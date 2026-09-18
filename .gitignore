@@ -22,3 +22,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Maven 构建产物（编译输出，不该进版本库）
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# 日志输出目录
+logs/
+
+# 本地环境相关的配置文件（含密钥/密码，不要提交）
+application-local.yml
+application-local.yaml
+
+# IDE 插件的本地状态文件，和项目无关
+.idea/claudeCodeTabState.xml
+.idea/workspace.xml
+.idea/shelf/
